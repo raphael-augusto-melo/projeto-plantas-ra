@@ -1,29 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = FirebaseOptions(
-  apiKey: "AIzaSyDG55KG31U-GOf4xpcSDItH5ct0Grw2V_Y",
-  authDomain: "plantinha-390e3.firebaseapp.com",
-  projectId: "plantinha-390e3",
-  storageBucket: "plantinha-390e3.appspot.com",
-  messagingSenderId: "121944115603",
-  appId: "1:121944115603:web:07ce4bae8ebd4464f9c066",
-  measurementId: "G-KBESLGX9B0"
-);
+import 'package:projeto_planta_realidade_aumentada/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: firebaseConfig,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   static final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  static final FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
+  static final FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
   Widget build(BuildContext context) {
