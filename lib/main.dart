@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = FirebaseOptions(
@@ -13,6 +12,7 @@ const firebaseConfig = FirebaseOptions(
   appId: "1:121944115603:web:07ce4bae8ebd4464f9c066",
   measurementId: "G-KBESLGX9B0"
 );
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -56,16 +56,17 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
-  void _logLoginEvent(String method) {
-    FirebaseAnalytics.instance.logEvent(
-      name: 'login',
-      parameters: <String, dynamic>{
-        'method': method,
-      },
-    ).then((_) {
+  void _logLoginEvent(String method) async {
+    try {
+      await FirebaseAnalytics.instance.logEvent(
+        name: 'login',
+        parameters: <String, dynamic>{
+          'method': method,
+        },
+      );
       print("Login event logged successfully");
-    }).catchError((error) {
+    } catch (error) {
       print("Failed to log login event: $error");
-    });
+    }
   }
 }
