@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'plantinha-390e3.appspot.com',
     measurementId: 'G-2BTNT34T01',
   );
+
 }

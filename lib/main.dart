@@ -1,72 +1,46 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = FirebaseOptions(
-  apiKey: "AIzaSyDG55KG31U-GOf4xpcSDItH5ct0Grw2V_Y",
-  authDomain: "plantinha-390e3.firebaseapp.com",
-  projectId: "plantinha-390e3",
-  storageBucket: "plantinha-390e3.appspot.com",
-  messagingSenderId: "121944115603",
-  appId: "1:121944115603:web:07ce4bae8ebd4464f9c066",
-  measurementId: "G-KBESLGX9B0"
-);
+import 'package:flutter/material.dart';
+import 'package:projeto_planta_realidade_aumentada/firebase_options.dart';
+import 'package:provider/provider.dart';
+import 'providers/auth_provider.dart';
+import 'screens/login_screen.dart';
+import 'screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: firebaseConfig,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  static final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  static final FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Firebase Analytics Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider(
+      create: (_) => AuthProvider(),
+      child: MaterialApp(
+        title: 'Plant Scanner',
+        theme: ThemeData(
+          primarySwatch: Colors.green,
+        ),
+        home: AuthWrapper(),
       ),
-      navigatorObservers: [observer],
-      home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Firebase Analytics Demo'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            _logLoginEvent('email');
-          },
-          child: Text('Log Login Event'),
-        ),
-      ),
+    return Consumer<AuthProvider>(
+      builder: (context, authProvider, child) {
+        if (authProvider.user != null) {
+          return HomeScreen();
+        } else {
+          return LoginScreen();
+        }
+      },
     );
-  }
-
-  void _logLoginEvent(String method) async {
-    try {
-      await FirebaseAnalytics.instance.logEvent(
-        name: 'login',
-        parameters: <String, dynamic>{
-          'method': method,
-        },
-      );
-      print("Login event logged successfully");
-    } catch (error) {
-      print("Failed to log login event: $error");
-    }
   }
 }
