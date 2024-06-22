@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "121944115603",
-    "project_id": "plantinha-390e3",
-    "storage_bucket": "plantinha-390e3.appspot.com"
+    "project_number": "366617342728",
+    "project_id": "planta-ar",
+    "storage_bucket": "planta-ar.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:121944115603:android:2b5503cab1f28a58f9c066",
+        "mobilesdk_app_id": "1:366617342728:android:f9d5b9f1446f56e0e872bd",
         "android_client_info": {
           "package_name": "com.example.projeto_planta_realidade_aumentada"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAs_4ekMSivcRBR3QyIBaIfPKg9VLzGpgk"
+          "current_key": "AIzaSyA-52tigVVTIQmYrlGwWc2XSHK1Y0ueKpI"
         }
       ],
       "services": {
