@@ -41,49 +41,53 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBmOb_pNVSO22dsxnFBfIYaMwaolP5BlmQ',
-    appId: '1:366617342728:web:77e2821801731070e872bd',
-    messagingSenderId: '366617342728',
-    projectId: 'planta-ar',
-    authDomain: 'planta-ar.firebaseapp.com',
-    storageBucket: 'planta-ar.appspot.com',
-    measurementId: 'G-7DTCQH6WC0',
+    apiKey: 'AIzaSyDG55KG31U-GOf4xpcSDItH5ct0Grw2V_Y',
+    appId: '1:121944115603:web:07ce4bae8ebd4464f9c066',
+    messagingSenderId: '121944115603',
+    projectId: 'plantinha-390e3',
+    authDomain: 'plantinha-390e3.firebaseapp.com',
+    storageBucket: 'plantinha-390e3.appspot.com',
+    measurementId: 'G-KBESLGX9B0',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA-52tigVVTIQmYrlGwWc2XSHK1Y0ueKpI',
-    appId: '1:366617342728:android:f9d5b9f1446f56e0e872bd',
-    messagingSenderId: '366617342728',
-    projectId: 'planta-ar',
-    storageBucket: 'planta-ar.appspot.com',
+    apiKey: 'AIzaSyAs_4ekMSivcRBR3QyIBaIfPKg9VLzGpgk',
+    appId: '1:121944115603:android:2b5503cab1f28a58f9c066',
+    messagingSenderId: '121944115603',
+    projectId: 'plantinha-390e3',
+    storageBucket: 'plantinha-390e3.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAH-t0CCSj09rVEo5wi_eq4fuyQ_1JFGhE',
-    appId: '1:366617342728:ios:3ca927b8316bc042e872bd',
-    messagingSenderId: '366617342728',
-    projectId: 'planta-ar',
-    storageBucket: 'planta-ar.appspot.com',
+    apiKey: 'AIzaSyD1p15WZdjE6lpfi61S9_NyiEh2eqOop_0',
+    appId: '1:121944115603:ios:905bc075cf39cd31f9c066',
+    messagingSenderId: '121944115603',
+    projectId: 'plantinha-390e3',
+    storageBucket: 'plantinha-390e3.appspot.com',
+    androidClientId: '121944115603-76i7f3m2f21m899qsmao6nhfqshng4sj.apps.googleusercontent.com',
+    iosClientId: '121944115603-42o0p4uvj96mc8llbvogckiqj8e5sdbi.apps.googleusercontent.com',
     iosBundleId: 'com.example.projetoPlantaRealidadeAumentada',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAH-t0CCSj09rVEo5wi_eq4fuyQ_1JFGhE',
-    appId: '1:366617342728:ios:3ca927b8316bc042e872bd',
-    messagingSenderId: '366617342728',
-    projectId: 'planta-ar',
-    storageBucket: 'planta-ar.appspot.com',
+    apiKey: 'AIzaSyD1p15WZdjE6lpfi61S9_NyiEh2eqOop_0',
+    appId: '1:121944115603:ios:905bc075cf39cd31f9c066',
+    messagingSenderId: '121944115603',
+    projectId: 'plantinha-390e3',
+    storageBucket: 'plantinha-390e3.appspot.com',
+    androidClientId: '121944115603-76i7f3m2f21m899qsmao6nhfqshng4sj.apps.googleusercontent.com',
+    iosClientId: '121944115603-42o0p4uvj96mc8llbvogckiqj8e5sdbi.apps.googleusercontent.com',
     iosBundleId: 'com.example.projetoPlantaRealidadeAumentada',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBmOb_pNVSO22dsxnFBfIYaMwaolP5BlmQ',
-    appId: '1:366617342728:web:7bd1a2aee2b5ff9de872bd',
-    messagingSenderId: '366617342728',
-    projectId: 'planta-ar',
-    authDomain: 'planta-ar.firebaseapp.com',
-    storageBucket: 'planta-ar.appspot.com',
-    measurementId: 'G-LZ3LEW8FS1',
+    apiKey: 'AIzaSyDG55KG31U-GOf4xpcSDItH5ct0Grw2V_Y',
+    appId: '1:121944115603:web:0d7102d841df278af9c066',
+    messagingSenderId: '121944115603',
+    projectId: 'plantinha-390e3',
+    authDomain: 'plantinha-390e3.firebaseapp.com',
+    storageBucket: 'plantinha-390e3.appspot.com',
+    measurementId: 'G-2BTNT34T01',
   );
 
 }

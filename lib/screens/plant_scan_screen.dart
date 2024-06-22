@@ -23,7 +23,7 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
   void initState() {
     super.initState();
     _cameraService = Provider.of<CameraService>(context, listen: false);
-    _geminiService = GeminiService(dotenv.env['GEMINI_API_KEY']!); // Passando a chave de API corretamente
+    _geminiService = GeminiService(dotenv.env['GEMINI_API_KEY']!);
     _cameraService.initializeCamera();
   }
 
@@ -43,7 +43,7 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
 
     if (pickedFile != null) {
       setState(() {
-        _image = File(pickedFile.path);
+        _image = File(pickedFile!.path);
       });
 
       try {
@@ -62,12 +62,12 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Scan Plant')),
+      appBar: AppBar(title: const Text('Scan Plant')),
       body: Column(
         children: <Widget>[
           Expanded(
             child: _image == null
-                ? Center(child: Text('No image selected.'))
+                ? const Center(child: Text('No image selected.'))
                 : Image.file(_image!),
           ),
           if (_result != null)
@@ -85,7 +85,7 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
             heroTag: 'camera',
             child: const Icon(Icons.camera),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           FloatingActionButton(
             onPressed: () => _getImage(ImageSource.gallery),
             heroTag: 'gallery',

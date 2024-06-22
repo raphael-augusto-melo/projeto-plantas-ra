@@ -36,6 +36,7 @@ Future<String?> takePicture() async {
     return await _picker.pickImage(source: ImageSource.gallery);
   }
 
+  @override
   void dispose() {
     _controller?.dispose();
     super.dispose();

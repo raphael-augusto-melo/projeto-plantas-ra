@@ -1,26 +1,51 @@
 {
   "project_info": {
-    "project_number": "366617342728",
-    "project_id": "planta-ar",
-    "storage_bucket": "planta-ar.appspot.com"
+    "project_number": "121944115603",
+    "project_id": "plantinha-390e3",
+    "storage_bucket": "plantinha-390e3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:366617342728:android:f9d5b9f1446f56e0e872bd",
+        "mobilesdk_app_id": "1:121944115603:android:2b5503cab1f28a58f9c066",
         "android_client_info": {
           "package_name": "com.example.projeto_planta_realidade_aumentada"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "121944115603-76i7f3m2f21m899qsmao6nhfqshng4sj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.projeto_planta_realidade_aumentada",
+            "certificate_hash": "9844148298d50e121f2018e56ac46ffc32c25f3c"
+          }
+        },
+        {
+          "client_id": "121944115603-flpqhcanfkbu6r3f8s9chulac4pjk6ie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyA-52tigVVTIQmYrlGwWc2XSHK1Y0ueKpI"
+          "current_key": "AIzaSyAs_4ekMSivcRBR3QyIBaIfPKg9VLzGpgk"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121944115603-flpqhcanfkbu6r3f8s9chulac4pjk6ie.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "121944115603-42o0p4uvj96mc8llbvogckiqj8e5sdbi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.projetoPlantaRealidadeAumentada"
+              }
+            }
+          ]
         }
       }
     }
