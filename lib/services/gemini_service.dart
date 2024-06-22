@@ -1,19 +1,32 @@
 import 'dart:io';
-import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class GeminiService {
-  GeminiService(String s);
+  final String apiKey;
+  final String model = 'gemini-1.5-pro';
 
-  void main() async {
+  GeminiService(this.apiKey);
 
-    // Access your API key as an environment variable (see "Set up your API key" above)
-    final apiKey = Platform.environment['AIzaSyDzFyVrF85lTHhxuSXAiABE4pukO4Vvp3Y'];
-    if (apiKey == null) {
-      print('No \$API_KEY environment variable');
-      exit(1);
+  Future<String> analyzeImage(File imageFile) async {
+    final uri = Uri.parse('https://ai.googleapis.com/v1/images:analyze?key=$apiKey');
+    final bytes = await imageFile.readAsBytes();
+
+    final response = await http.post(
+      uri,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
+        'model': model,
+        'image': base64Encode(bytes),
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return data['result']['description'] ?? 'No description found';
+    } else {
+      throw Exception('Failed to analyze image');
     }
-
-    // The Gemini 1.5 models are versatile and work with most use cases
-    final model = GenerativeModel(model: 'gemini-1.5-pro', apiKey: apiKey);
   }
 }

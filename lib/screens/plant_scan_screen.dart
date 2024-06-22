@@ -1,9 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:provider/provider.dart';
-import 'package:camera/camera.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../services/camera_service.dart';
 import '../services/gemini_service.dart';
 
@@ -24,7 +23,7 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
   void initState() {
     super.initState();
     _cameraService = Provider.of<CameraService>(context, listen: false);
-    _geminiService = GeminiService('AIzaSyDzFyVrF85lTHhxuSXAiABE4pukO4Vvp3Y'); // Substitute with your actual API key
+    _geminiService = GeminiService(dotenv.env['GEMINI_API_KEY']!); // Passando a chave de API corretamente
     _cameraService.initializeCamera();
   }
 
@@ -33,20 +32,6 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
     _cameraService.dispose();
     super.dispose();
   }
-
-Future<String?> analyzeImage(File image) async {
-  // Use the Google Generative AI library to send the image to the Gemini endpoint
-  // and process it according to your model definition.
-  // Replace with your actual implementation using the library.
-  final generativeModel = GenerativeModel(model: 'AIzaSyDzFyVrF85lTHhxuSXAiABE4pukO4Vvp3Y', apiKey: apiKey);
-  final response = await generativeModel.runTextGeneration(image: image);
-  if (response.statusCode == 200) {
-    return response.data['generated_text'];
-  } else {
-    print('Error analyzing image: ${response.statusCode}');
-    return null;
-  }
-}
 
   Future<void> _getImage(ImageSource source) async {
     XFile? pickedFile;
@@ -61,16 +46,23 @@ Future<String?> analyzeImage(File image) async {
         _image = File(pickedFile.path);
       });
 
-      final result = await _geminiService.analyzeImage(_image!);
-      setState(() {
-        _result = result;
-      });
+      try {
+        final result = await _geminiService.analyzeImage(_image!);
+        setState(() {
+          _result = result;
+        });
+      } catch (e) {
+        setState(() {
+          _result = 'Error analyzing image: $e';
+        });
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Scan Plant')),
       body: Column(
         children: <Widget>[
           Expanded(
