@@ -19,6 +19,7 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
   late GeminiService _geminiService;
   File? _image;
   String? _result;
+  bool _isLoading = false;
 
   @override
   void didChangeDependencies() {
@@ -39,6 +40,7 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
     XFile? pickedFile;
     if (source == ImageSource.camera) {
       pickedFile = await _cameraService!.takePicture();
+      await _cameraService!.disposeController(); // Parar a pré-visualização da câmera
     } else {
       pickedFile = await _cameraService!.pickImageFromGallery();
     }
@@ -46,12 +48,14 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
     if (pickedFile != null) {
       setState(() {
         _image = File(pickedFile!.path);
+        _isLoading = true;
       });
 
       try {
         final result = await _geminiService.analyzeImage(_image!);
         setState(() {
           _result = result;
+          _isLoading = false;
         });
 
         Navigator.push(
@@ -63,6 +67,7 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
       } catch (e) {
         setState(() {
           _result = 'Error analyzing image: $e';
+          _isLoading = false;
         });
       }
     }
@@ -75,14 +80,30 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: _cameraService == null || !_cameraService!.controller.value.isInitialized
-                ? const Center(child: CircularProgressIndicator())
-                : CameraPreview(_cameraService!.controller),
+            child: _image == null
+                ? (_cameraService == null || !_cameraService!.controller.value.isInitialized
+                    ? const Center(child: CircularProgressIndicator())
+                    : CameraPreview(_cameraService!.controller))
+                : Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Image.file(_image!),
+                      if (_isLoading)
+                        const Positioned(
+                          child: CircularProgressIndicator(),
+                        ),
+                    ],
+                  ),
           ),
           if (_result != null)
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(_result!),
+            ),
+          if (_isLoading)
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text('Analisando imagem...'),
             ),
         ],
       ),

@@ -39,9 +39,17 @@ class CameraService with ChangeNotifier {
     }
   }
 
+  Future<void> disposeController() async {
+    if (_controller != null) {
+      await _controller!.dispose();
+      _controller = null;
+      notifyListeners();
+    }
+  }
+
   @override
   void dispose() {
-    _controller?.dispose();
+    disposeController();
     super.dispose();
   }
 }
