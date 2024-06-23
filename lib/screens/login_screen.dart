@@ -65,7 +65,7 @@ class LoginScreen extends StatelessWidget {
                 child: const Text('Login with Google'),
               ),
             if (kIsWeb) // Use renderButton for web
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {

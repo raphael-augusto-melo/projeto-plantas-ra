@@ -7,6 +7,7 @@ import 'services/camera_service.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Plant Scanner',
         theme: ThemeData(
+          textTheme: GoogleFonts.robotoTextTheme(),
           primarySwatch: Colors.green,
         ),
         home: const AuthWrapper(),

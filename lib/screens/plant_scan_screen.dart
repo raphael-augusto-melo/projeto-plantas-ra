@@ -3,9 +3,10 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../services/camera_service.dart';
 import '../services/gemini_service.dart';
+import 'response_screen.dart';  // Import necessário
+import 'package:google_fonts/google_fonts.dart';
 
 class PlantScanScreen extends StatefulWidget {
   const PlantScanScreen({super.key});
@@ -89,8 +90,19 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
                     children: [
                       Image.file(_image!),
                       if (_isLoading)
-                        const Positioned(
-                          child: CircularProgressIndicator(),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const CircularProgressIndicator(),
+                            const SizedBox(height: 8.0),
+                            Text(
+                              'Analisando imagem...',
+                              style: GoogleFonts.roboto(
+                                color: const Color(0xFF1B4001),
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
                     ],
                   ),
@@ -99,11 +111,6 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(_result!),
-            ),
-          if (_isLoading)
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('Analisando imagem...'),
             ),
         ],
       ),
@@ -122,31 +129,6 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
             child: const Icon(Icons.photo),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ResponseScreen extends StatelessWidget {
-  final String responseText;
-
-  const ResponseScreen({required this.responseText});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Resposta do Gemini')),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Text(
-              responseText,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
       ),
     );
   }
