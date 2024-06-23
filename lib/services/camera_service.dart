@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CameraService with ChangeNotifier {
   CameraController? _controller;
@@ -8,32 +8,35 @@ class CameraService with ChangeNotifier {
   final ImagePicker _picker = ImagePicker();
 
   Future<void> initializeCamera() async {
-    final cameras = await availableCameras();
-    _controller = CameraController(cameras[0], ResolutionPreset.high);
-    await _controller!.initialize();
-    notifyListeners();
+    try {
+      final cameras = await availableCameras();
+      _controller = CameraController(cameras[0], ResolutionPreset.high);
+      await _controller!.initialize();
+      notifyListeners();
+    } catch (e) {
+      print('Error initializing camera: $e');
+    }
   }
 
-Future<String?> takePicture() async {
-  if (!_controller!.value.isInitialized) {
-    return null;
+  Future<XFile?> takePicture() async {
+    if (!_controller!.value.isInitialized || _controller!.value.isTakingPicture) {
+      return null;
+    }
+    try {
+      return await _controller!.takePicture();
+    } catch (e) {
+      print('Error taking picture: $e');
+      return null;
+    }
   }
-  if (_controller!.value.isTakingPicture) {
-    return null;
-  }
-  try {
-    final XFile picture = await _controller!.takePicture();
-    final imagePath = picture.path;
-    return imagePath;
-  } catch (e) {
-    print(e);
-    return null;
-  }
-}
-
 
   Future<XFile?> pickImageFromGallery() async {
-    return await _picker.pickImage(source: ImageSource.gallery);
+    try {
+      return await _picker.pickImage(source: ImageSource.gallery);
+    } catch (e) {
+      print('Error picking image from gallery: $e');
+      return null;
+    }
   }
 
   @override

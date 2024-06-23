@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,31 +15,32 @@ class PlantScanScreen extends StatefulWidget {
 }
 
 class _PlantScanScreenState extends State<PlantScanScreen> {
-  late CameraService _cameraService;
+  CameraService? _cameraService;
   late GeminiService _geminiService;
   File? _image;
   String? _result;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _cameraService = Provider.of<CameraService>(context, listen: false);
-    _geminiService = GeminiService(dotenv.env['GEMINI_API_KEY']!);
-    _cameraService.initializeCamera();
+    _geminiService = GeminiService();
+    _initializeCamera();
   }
 
-  @override
-  void dispose() {
-    _cameraService.dispose();
-    super.dispose();
+  Future<void> _initializeCamera() async {
+    await _cameraService!.initializeCamera();
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   Future<void> _getImage(ImageSource source) async {
     XFile? pickedFile;
     if (source == ImageSource.camera) {
-      pickedFile = (await _cameraService.takePicture()) as XFile?;
+      pickedFile = await _cameraService!.takePicture();
     } else {
-      pickedFile = await _cameraService.pickImageFromGallery();
+      pickedFile = await _cameraService!.pickImageFromGallery();
     }
 
     if (pickedFile != null) {
@@ -51,6 +53,13 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
         setState(() {
           _result = result;
         });
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ResponseScreen(responseText: _result!),
+          ),
+        );
       } catch (e) {
         setState(() {
           _result = 'Error analyzing image: $e';
@@ -66,9 +75,9 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: _image == null
-                ? const Center(child: Text('No image selected.'))
-                : Image.file(_image!),
+            child: _cameraService == null || !_cameraService!.controller.value.isInitialized
+                ? const Center(child: CircularProgressIndicator())
+                : CameraPreview(_cameraService!.controller),
           ),
           if (_result != null)
             Padding(
@@ -92,6 +101,31 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
             child: const Icon(Icons.photo),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class ResponseScreen extends StatelessWidget {
+  final String responseText;
+
+  const ResponseScreen({required this.responseText});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Resposta do Gemini')),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Text(
+              responseText,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
       ),
     );
   }

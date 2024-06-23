@@ -1,6 +1,8 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../providers/auth_provider.dart' as auth_provider;
 import 'register_screen.dart';
 
@@ -9,6 +11,23 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
 
   LoginScreen({super.key});
+
+  Future<void> _signInWithGoogle(BuildContext context) async {
+    final googleSignIn = GoogleSignIn();
+    final googleUser = await googleSignIn.signIn();
+    if (googleUser == null) {
+      // The user canceled the sign-in
+      return;
+    }
+
+    final googleAuth = await googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    await FirebaseAuth.instance.signInWithCredential(credential);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +69,7 @@ class LoginScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {
-                    await Provider.of<auth_provider.AuthProvider>(context, listen: false)
-                        .signInWithGoogle();
+                    await _signInWithGoogle(context);
                   },
                   child: const Text('Login with Google'),
                 ),

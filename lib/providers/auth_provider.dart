@@ -9,8 +9,10 @@ class AuthProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? _user;
   final GoogleSignIn _googleSignIn = GoogleSignIn(
-    clientId: '121944115603-76i7f3m2f21m899qsmao6nhfqshng4sj.apps.googleusercontent.com',
+    clientId: '121944115603-flpqhcanfkbu6r3f8s9chulac4pjk6ie.apps.googleusercontent.com',
   );
+
+  var authStateChanges;
 
   User? get user => _user;
 
