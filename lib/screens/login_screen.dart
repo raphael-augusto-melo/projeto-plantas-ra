@@ -32,29 +32,62 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF467302), // Defina a cor de fundo aqui
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // Adicione o texto de título aqui
+            const Text(
+              'Bem-vindo\nFaça seu login',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 20), // Espaço entre o título e a imagem
+            // Adicione a imagem aqui
+            Image.asset(
+              'assets/panda-hi.gif', // Substitua pelo caminho correto da sua imagem
+              height: 100, // Ajuste o tamanho conforme necessário
+            ),
+            const SizedBox(height: 20), // Espaço entre a imagem e os inputs
             TextField(
               controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
+              style: const TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                labelText: 'Email',
+                labelStyle: TextStyle(color: Colors.white), // Cor do label do input
+              ),
             ),
             TextField(
               controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
+              style: const TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                labelText: 'Senha',
+                labelStyle: TextStyle(color: Colors.white), // Cor do label do input
+              ),
               obscureText: true,
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                String email = _emailController.text;
-                String password = _passwordController.text;
-                await Provider.of<auth_provider.AuthProvider>(context, listen: false)
-                    .signIn(email, password);
-              },
-              child: const Text('Login'),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,  // Cor do texto do botão
+                ),
+                onPressed: () async {
+                  String email = _emailController.text;
+                  String password = _passwordController.text;
+                  await Provider.of<auth_provider.AuthProvider>(context, listen: false)
+                      .signIn(email, password);
+                },
+                child: const Text('Entrar'),
+              ),
             ),
             if (!kIsWeb) // Hide button for web
               ElevatedButton(
@@ -62,26 +95,40 @@ class LoginScreen extends StatelessWidget {
                   await Provider.of<auth_provider.AuthProvider>(context, listen: false)
                       .signInWithGoogle();
                 },
-                child: const Text('Login with Google'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black, // Cor do texto do botão
+                ),
+                child: const Text('Entrar com o Google'),
               ),
             if (kIsWeb) // Use renderButton for web
               SizedBox(
-                width: double.infinity,
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,  // Cor do texto do botão
+                  ),
                   onPressed: () async {
                     await _signInWithGoogle(context);
                   },
-                  child: const Text('Login with Google'),
+                  child: const Text('Entrar com o Google'),
                 ),
               ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RegisterScreen()),
-                );
-              },
-              child: const Text('Register'),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black, // Cor do texto do botão
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RegisterScreen()),
+                  );
+                },
+                child: const Text('Registre-se'),
+              ),
             ),
           ],
         ),

@@ -36,3 +36,4 @@ flutter:
   assets:
     - assets/.env
     - assets/panda_talking.gif
+    - assets/panda-hi.gif
