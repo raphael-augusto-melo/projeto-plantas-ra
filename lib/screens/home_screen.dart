@@ -11,8 +11,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Início', style: GoogleFonts.roboto(color: Colors.white)),
-        backgroundColor: const Color(0xFF467302),
+        title: Text('Início', style: GoogleFonts.roboto(color: Colors.black)),
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 40), // Espaçamento para centralizar no início
                 Text(
-                  'Seja bem vindo ao Panda´s Plant!',
+                  'Seja bem-vindo ao Pandas Plant!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.roboto(
                     color: Colors.white,
@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
               width: 100,
               height: 100,
               child: FloatingActionButton(
-                backgroundColor: const Color(0xFF467302),
+                backgroundColor: Colors.white,
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -74,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                   'Escanear\nPlanta',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.roboto(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 14,
                   ),
                 ),
@@ -83,7 +83,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: const Color(0xFF8C5D42),
+      backgroundColor: const Color(0xFF467302),
     );
   }
 }
