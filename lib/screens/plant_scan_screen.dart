@@ -86,17 +86,17 @@ class _PlantScanScreenState extends State<PlantScanScreen> {
                     ? const Center(child: CircularProgressIndicator())
                     : CameraPreview(_cameraService!.controller))
                 : Stack(
-                    alignment: Alignment.center,
+                    alignment: Alignment.bottomCenter,
                     children: [
                       Image.file(_image!),
                       if (_isLoading)
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             const CircularProgressIndicator(),
                             const SizedBox(height: 8.0),
                             Text(
-                              'Analisando imagem...',
+                              'Analisando imagem... Aguarde...',
                               style: GoogleFonts.roboto(
                                 color: const Color(0xFF1B4001),
                                 fontSize: 16,

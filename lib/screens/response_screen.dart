@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'home_screen.dart'; 
 
 class ResponseScreen extends StatelessWidget {
   final String responseText;
 
-  const ResponseScreen({super.key, required this.responseText});
+  const ResponseScreen({required this.responseText});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Resposta do Gemini', style: GoogleFonts.roboto()),
-        backgroundColor: const Color(0xFF1B4001),
+        title: Text('Análise do Panda', style: GoogleFonts.roboto(color: Colors.white)),
+        backgroundColor: const Color(0xFF467302),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+              (Route<dynamic> route) => false,
+            );
+          },
+        ),
       ),
       body: Column(
         children: [
@@ -68,7 +79,7 @@ class ResponseScreen extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           Text(
-            'Gemini está falando...',
+            'Panda está falando...',
             style: GoogleFonts.roboto(
               color: const Color(0xFF8C5D42),
               fontSize: 16,
